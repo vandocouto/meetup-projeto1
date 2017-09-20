@@ -70,12 +70,15 @@ node ('master') {
         }
     }
 
-    post {
-        success {
-            slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${currentBuild.displayName}]' (<${env.BUILD_URL}|Open>)")
-        }
-        failure {
-            slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${currentBuild.displayName}]' (<${env.BUILD_URL}|Open>)")
+
+    stage ('Slack Notification'){
+        post {
+            success {
+                slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${currentBuild.displayName}]' (<${env.BUILD_URL}|Open>)")
+            }
+            failure {
+                slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${currentBuild.displayName}]' (<${env.BUILD_URL}|Open>)")
+            }
         }
     }
 }
