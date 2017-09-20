@@ -83,16 +83,13 @@ node ('master') {
 }
 
 def notifyBuild(String buildStatus = 'STARTED') {
-    // build status of null means successful
     buildStatus =  buildStatus ?: 'SUCCESSFUL'
 
-    // Default values
     def colorName = 'RED'
     def colorCode = '#FF0000'
     def subject = "${buildStatus}: Job '${env.JOB_NAME} [${currentBuild.displayName}]'"
     def summary = "${subject} (${env.BUILD_URL})"
 
-    // Override default values based on build status
     if (buildStatus == 'STARTED') {
         color = 'YELLOW'
         colorCode = '#FFFF00'
@@ -105,16 +102,6 @@ def notifyBuild(String buildStatus = 'STARTED') {
         color = 'RED'
         colorCode = '#FF0000'
     }
-
-    // Send notifications
     slackSend (color: colorCode, message: summary)
 }
 
-def notifySuccessful() {
-    success {
-        slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${currentBuild.displayName}]' (<${env.BUILD_URL}|Open>)")
-    }
-    failure {
-        slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${currentBuild.displayName}]' (<${env.BUILD_URL}|Open>)")
-    }
-}
