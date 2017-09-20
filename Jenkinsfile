@@ -5,8 +5,6 @@ ipswarm="10.0.1.177"
 
 node ('master') {
 
-     notifyStarted()
-
     stage('Fetch') {
         checkout scm
         pollSCM 'H/1 * * * *'
