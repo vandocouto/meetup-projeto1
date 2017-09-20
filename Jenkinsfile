@@ -60,7 +60,7 @@ node ('master') {
                     withCredentials([usernamePassword(credentialsId: 'GITHUB', passwordVariable: 'PASSWD', usernameVariable: 'USERNAME')]) {
                         sh "git config --global user.email 'vandocouto@gmail.com'"
                         sh "git config --global user.name 'Evandro Couto'"
-                        git url: 'https://$USERNAME:$PASSWD@github.com/vandocouto/meetup-projeto1.git'
+                        git url: 'https://${USERNAME}:${PASSWD}@github.com/vandocouto/meetup-projeto1.git'
                         sh "git tag -a Master-'${currentBuild.displayName}' -m Master-'${currentBuild.displayName}'"
                         sh "git push origin --tags"
                     }
