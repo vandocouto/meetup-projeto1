@@ -26,9 +26,9 @@ node ('master') {
     stage ('Check pem') {
 
         if (!fileExists('keys/jenkins-vault.pem')) {
-            sh 'vault write -tls-skip-verify -format=json ssh/creds/swarm ip='${ipswarm}' ttl=1h | jq -r .data.key > keys/jenkins-vault.pem'
-            sh 'chmod 400 keys/jenkins-vault.pem'
-            sh 'chown jenkins:jenkins keys/jenkins-vault.pem'
+            sh "vault write -tls-skip-verify -format=json ssh/creds/swarm ip='${ipswarm}' ttl=1h | jq -r .data.key > keys/jenkins-vault.pem"
+            sh "chmod 400 keys/jenkins-vault.pem"
+            sh "chown jenkins:jenkins keys/jenkins-vault.pem"
         }
         else {
             echo 'jenkins-vault.pem - OK'
