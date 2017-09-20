@@ -73,8 +73,11 @@ node ('master') {
 
 
 def notifyStarted() {
-    slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-    hipchatSend (color: 'YELLOW', notify: true,
-    message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
-)
+    success {
+        slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${build}]' (<${env.BUILD_URL}|Open>)")
+    }
+    failure {
+        slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${build}]' (<${env.BUILD_URL}|Open>)")
+    }
+}
 
