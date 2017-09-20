@@ -6,6 +6,7 @@ ipswarm="10.0.1.177"
 node ('master') {
 
     stage('Fetch') {
+        notifyStarted()
         checkout scm
         pollSCM 'H/1 * * * *'
     }
@@ -69,15 +70,14 @@ node ('master') {
             echo 'branch not staging'
         }
     }
-}
 
-
-def notifyStarted() {
-    success {
-        slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${build}]' (<${env.BUILD_URL}|Open>)")
-    }
-    failure {
-        slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${build}]' (<${env.BUILD_URL}|Open>)")
+    stage('Notification'){
+        notifySuccessful()
     }
 }
 
+
+def notifyStarted() { /* .. */ }
+def notifySuccessful() {
+  slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+}
