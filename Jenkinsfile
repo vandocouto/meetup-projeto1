@@ -72,15 +72,12 @@ node ('master') {
                 echo 'branch not staging'
             }
         }
-
-        stage('Notification'){
-            notifySuccessful()
-        }
     }
     catch (e) {
         currentBuild.result = "FAILED"
         throw e
-    } finally {
+    }
+    finally {
         notifyBuild(currentBuild.result)
     }
 }
@@ -113,3 +110,11 @@ def notifyBuild(String buildStatus = 'STARTED') {
     slackSend (color: colorCode, message: summary)
 }
 
+def notifySuccessful() {
+    success {
+        slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${currentBuild.displayName}]' (<${env.BUILD_URL}|Open>)")
+    }
+    failure {
+        slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${currentBuild.displayName}]' (<${env.BUILD_URL}|Open>)")
+    }
+}
