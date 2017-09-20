@@ -52,7 +52,7 @@ node ('master') {
                 echo 'branch master'
                 stage ('Build - Deploy - Container') {
                     withCredentials([string(credentialsId: 'REGISTRY', variable: 'REGISTRY')]) {
-                        sh "ANSIBLE_HOST_KEY_CHECKING=False annsible-playbook -i ansible/hosts ./ansible/tasks/main.yml --tags projeto1_master --extra-vars dockerlogin=churrops --extra-vars dockerpass=$REGISTRY --extra-vars version='${currentBuild.displayName}'"
+                        sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts ./ansible/tasks/main.yml --tags projeto1_master --extra-vars dockerlogin=churrops --extra-vars dockerpass=$REGISTRY --extra-vars version='${currentBuild.displayName}'"
                     }
                 }
             }
@@ -88,7 +88,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
     def colorName = 'RED'
     def colorCode = '#FF0000'
     def subject = "${buildStatus}: Job '${env.JOB_NAME} [${currentBuild.displayName}]'"
-    def summary = "${subject} (${env.BUILD_URL})"
+    def summary = "${subject} (<${env.BUILD_URL}|Open>)"
 
     if (buildStatus == 'STARTED') {
         color = 'YELLOW'
@@ -104,4 +104,3 @@ def notifyBuild(String buildStatus = 'STARTED') {
     }
     slackSend (color: colorCode, message: summary)
 }
-
