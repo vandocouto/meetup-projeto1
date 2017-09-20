@@ -5,8 +5,9 @@ ipswarm="10.0.1.177"
 
 node ('master') {
     try {
-
-        notifyBuild('STARTED')
+        stage('Slack Notification'){
+            notifyBuild('STARTED')
+        }
 
         stage('Fetch') {
             checkout scm
