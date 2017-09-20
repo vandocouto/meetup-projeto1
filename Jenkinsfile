@@ -15,14 +15,14 @@ node ('master') {
 
         stage ('Docker Login') {
             withCredentials([string(credentialsId: 'REGISTRY', variable: 'REGISTRY')]) {
-                sh 'sudo docker login -u churrops -p $REGISTRY registry.churrops.com'
+                sh "sudo docker login -u churrops -p $REGISTRY registry.churrops.com"
             }
         }
 
         stage ('Vault'){
             withCredentials([string(credentialsId: 'VAULT', variable: 'VAULT')]) {
-                sh 'export VAULT_ADDR=https://vault.churrops.com:8200'
-                sh 'vault auth -tls-skip-verify $VAULT'
+                sh "export VAULT_ADDR=https://vault.churrops.com:8200"
+                sh "vault auth -tls-skip-verify $VAULT"
             }
         }
 
@@ -55,9 +55,13 @@ node ('master') {
                         sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts ./ansible/tasks/main.yml --tags projeto1_master --extra-vars dockerlogin=churrops --extra-vars dockerpass=$REGISTRY --extra-vars version='${currentBuild.displayName}'"
                     }
                 }
+                stage ("GitHub TAG") {
+                    sh "git tag -a Master-'${currentBuild.displayName}' -m Master-'${currentBuild.displayName}'"
+                    sh "git push origin --tags"
+                }
             }
             else {
-                echo 'branch not master'
+                echo "branch not master"
             }
 
             if (env.BRANCH_NAME == 'staging') {
@@ -69,7 +73,7 @@ node ('master') {
                 }
             }
             else {
-                echo 'branch not staging'
+                echo "branch not staging"
             }
         }
     }
