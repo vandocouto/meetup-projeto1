@@ -1,0 +1,5 @@
+- Limpar a chave do Jenkins:
+  /var/jenkins_home/workspace/meetup-projeto1_master-N7KJOXECJLM2JGWDXKHEVPYFGMFZF4ATPEG2PIEEINA2DZYUCFFA/keys
+
+- Ajustar o IP do SWARM no Jenkinsfile
+- Ajustar o IP do SWARM no Ansible/hosts

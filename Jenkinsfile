@@ -1,6 +1,7 @@
 currentBuild.displayName = "1.0.${BUILD_NUMBER}"
 currentBuild.description = "Meetup Churrops"
-ipswarm="10.0.1.177"
+ipswarm="10.0.1.198"
+pathVssh="meetup"
 
 node ('master') {
     try {
@@ -15,21 +16,21 @@ node ('master') {
 
         stage ('Docker Login') {
             withCredentials([string(credentialsId: 'REGISTRY', variable: 'REGISTRY')]) {
-                sh 'sudo docker login -u churrops -p $REGISTRY registry.churrops.com'
+                sh "sudo docker login -u churrops -p $REGISTRY registry.churrops.com"
             }
         }
 
         stage ('Vault'){
             withCredentials([string(credentialsId: 'VAULT', variable: 'VAULT')]) {
-                sh 'export VAULT_ADDR=https://vault.churrops.com:8200'
-                sh 'vault auth -tls-skip-verify $VAULT'
+                sh "export VAULT_ADDR=https://vault.churrops.com:8200"
+                sh "vault auth -tls-skip-verify $VAULT"
             }
         }
 
         stage ('Check pem') {
 
             if (!fileExists('keys/jenkins-vault.pem')) {
-                sh "vault write -tls-skip-verify -format=json ssh/creds/swarm ip='${ipswarm}' ttl=1h | jq -r .data.key > keys/jenkins-vault.pem"
+                sh "vault write -tls-skip-verify -format=json '${pathVssh}'/creds/swarm ip='${ipswarm}' ttl=1h | jq -r .data.key > keys/jenkins-vault.pem"
                 sh "chmod 400 keys/jenkins-vault.pem"
                 sh "chown jenkins:jenkins keys/jenkins-vault.pem"
             }
@@ -57,7 +58,7 @@ node ('master') {
                 }
             }
             else {
-                echo 'branch not master'
+                echo "branch not master"
             }
 
             if (env.BRANCH_NAME == 'staging') {
@@ -69,7 +70,7 @@ node ('master') {
                 }
             }
             else {
-                echo 'branch not staging'
+                echo "branch not staging"
             }
         }
     }
