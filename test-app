@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  http:
+    image: emilevauge/whoami
+    networks:
+      - churrops
+    deploy:
+      replicas: 3
+      labels:
+        - "traefik.port=80"
+        - "traefik.frontend.rule=Host:blog.churrops.com.br"
+networks:
+ churrops:
+  driver: overlay
+  ipam:
+   config:
+    - subnet: 192.168.0.0/24

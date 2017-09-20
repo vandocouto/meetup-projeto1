@@ -1,0 +1,23 @@
+---
+- name: "Docker | /etc/hosts"
+  lineinfile:
+   dest: /etc/hosts
+   line: '{{ registry }} churrops.com'
+
+- name: "Compose projeto1 | Create directory /docker-compose/projeto1"
+  file: path={{ item }} state=directory mode=0755
+  with_items:
+   - /docker-compose/projeto1/prod
+
+- name: "Compose projeto1 | Docker login"
+  command: docker login -u {{ dockerlogin }}  -p {{ dockerpass }}  registry.churrops.com
+
+- name: "Compose projeto1 | Download image"
+  docker_image:
+   name: registry.churrops.com/projeto1:{{ version }}
+
+- name: "Compose projeto1 | Create docker-compose.yml"
+  template: src=../templates/production.docker-compose.yml dest=/docker-compose/projeto1/prod/docker-compose.yml owner=root mode=644
+
+- name: "Compose projeto1 | Deploy container"
+  shell: docker stack deploy --compose-file /docker-compose/projeto1/prod/docker-compose.yml up --with-registry-auth

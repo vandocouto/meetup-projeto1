@@ -1,0 +1,16 @@
+---
+# tasks file for projeto1
+
+- name: "Hosts"
+  hosts: all
+  become: yes
+
+  tasks:
+
+   - include: projeto1_master.yml
+     tags: projeto1_master
+
+   - include: projeto1_staging.yml
+     tags: projeto1_staging
+
+

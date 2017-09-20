@@ -1,0 +1,7 @@
+[master]
+10.0.1.177
+
+[all:vars]
+ansible_ssh_user=ubuntu
+ansible_ssh_private_key_file=keys/jenkins-vault.pem
+registry=10.0.1.177
