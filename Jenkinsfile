@@ -1,6 +1,6 @@
 currentBuild.displayName = "1.0.${BUILD_NUMBER}"
 currentBuild.description = "Meetup Churrops"
-ipswarm="10.0.1.177"
+ipswarm="10.0.1.198"
 
 node ('master') {
     try {
@@ -56,11 +56,13 @@ node ('master') {
                     }
                 }
                 stage ("GitHub TAG") {
-                    sh "git config --global user.email 'vandocouto@gmail.com'"
-                    sh "git config --global user.name 'Evandro Couto'"
-                    git url: 'https://github.com/vandocouto/meetup-projeto1.git'
-                    sh "git tag -a Master-'${currentBuild.displayName}' -m Master-'${currentBuild.displayName}'"
-                    sh "git push origin --tags"
+                    withCredentials([usernamePassword(credentialsId: 'GITHUB', passwordVariable: 'PASSWD', usernameVariable: 'USERNAME')]) {
+                        sh "git config --global user.email 'vandocouto@gmail.com'"
+                        sh "git config --global user.name 'Evandro Couto'"
+                        git url: 'https://$USERNAME:$PASSWD@github.com/vandocouto/meetup-projeto1.git'
+                        sh "git tag -a Master-'${currentBuild.displayName}' -m Master-'${currentBuild.displayName}'"
+                        sh "git push origin --tags"
+                    }
                 }
             }
             else {
