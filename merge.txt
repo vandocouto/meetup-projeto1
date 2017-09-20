@@ -1,1 +1,33 @@
-merge1
+git status
+
+git checkout -b staging
+
+git status
+
+git push -u origin staging
+
+
+git branch
+master
+* staging
+
+git checkout master
+Switched to branch 'master'
+Your branch is up-to-date with 'origin/master'.
+
+
+git merge staging
+Updating f91e7b0..87c0f67
+Fast-forward
+ branch    | 8 ++++++++
+ merge.txt | 1 +
+ 2 files changed, 9 insertions(+)
+ create mode 100644 merge.txt
+
+git push origin master
+Username for 'https://github.com': vandocouto
+Password for 'https://vandocouto@github.com':
+Total 0 (delta 0), reused 0 (delta 0)
+To https://github.com/vandocouto/meetup-projeto1.git
+   f91e7b0..87c0f67  master -> master
+~
