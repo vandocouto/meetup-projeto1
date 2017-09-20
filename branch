@@ -1,33 +1,35 @@
 
-git status
+git branch
+* master
+  staging
 
-git checkout -b staging
-
-git status
-
-git push -u origin staging
-
+git checkout staging
 
 git branch
-master
+  master
 * staging
 
+$ git merge master
+Updating 87c0f67..8e3aae1
+Fast-forward
+ ansible/templates/production.docker-compose.yml |  2 +-
+ ansible/templates/staging.docker-compose.yml    |  2 +-
+ branch                                          | 33 +++++++++++++++++++++++++++++----
+ merge.txt                                       | 34 +++++++++++++++++++++++++++++++++-
+ 4 files changed, 64 insertions(+), 7 deletions(-)
+
+ git branch
+  master
+* staging
+
+
 git checkout master
+M	branch
 Switched to branch 'master'
 Your branch is up-to-date with 'origin/master'.
 
 
-git merge staging
-Updating f91e7b0..87c0f67
-Fast-forward
- branch    | 8 ++++++++
- merge.txt | 1 +
- 2 files changed, 9 insertions(+)
- create mode 100644 merge.txt
+git branch
+* master
+  staging
 
-git push origin master
-Username for 'https://github.com': vandocouto
-Password for 'https://vandocouto@github.com':
-Total 0 (delta 0), reused 0 (delta 0)
-To https://github.com/vandocouto/meetup-projeto1.git
-   f91e7b0..87c0f67  master -> master
