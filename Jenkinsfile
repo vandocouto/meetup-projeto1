@@ -69,8 +69,6 @@ node ('master') {
             echo 'branch not staging'
         }
     }
-}
-
 
     post {
         success {
@@ -80,3 +78,4 @@ node ('master') {
             slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${currentBuild.displayName}]' (<${env.BUILD_URL}|Open>)")
         }
     }
+}
