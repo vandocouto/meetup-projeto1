@@ -52,7 +52,7 @@ node ('master') {
                 echo 'branch master'
                 stage ('Build - Deploy - Container') {
                     withCredentials([string(credentialsId: 'REGISTRY', variable: 'REGISTRY')]) {
-                        sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts ./ansible/tasks/main.yml --tags projeto1_master --extra-vars dockerlogin=churrops --extra-vars dockerpass=$REGISTRY --extra-vars version='${currentBuild.displayName}'"
+                        sh "ANSIBLE_HOST_KEY_CHECKING=False annsible-playbook -i ansible/hosts ./ansible/tasks/main.yml --tags projeto1_master --extra-vars dockerlogin=churrops --extra-vars dockerpass=$REGISTRY --extra-vars version='${currentBuild.displayName}'"
                     }
                 }
             }
