@@ -1,0 +1,2 @@
+Ajustar o IP do SWARM no Jenkinsfile
+Ajustar o IP do SWARM no Ansible/hosts
