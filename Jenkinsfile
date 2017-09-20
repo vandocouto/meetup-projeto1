@@ -1,6 +1,7 @@
 currentBuild.displayName = "1.0.${BUILD_NUMBER}"
 currentBuild.description = "Meetup Churrops"
 ipswarm="10.0.1.198"
+pathVssh="meetup"
 
 node ('master') {
     try {
@@ -29,7 +30,7 @@ node ('master') {
         stage ('Check pem') {
 
             if (!fileExists('keys/jenkins-vault.pem')) {
-                sh "vault write -tls-skip-verify -format=json ssh/creds/swarm ip='${ipswarm}' ttl=1h | jq -r .data.key > keys/jenkins-vault.pem"
+                sh "vault write -tls-skip-verify -format=json '${pathVssh}'/creds/swarm ip='${ipswarm}' ttl=1h | jq -r .data.key > keys/jenkins-vault.pem"
                 sh "chmod 400 keys/jenkins-vault.pem"
                 sh "chown jenkins:jenkins keys/jenkins-vault.pem"
             }
