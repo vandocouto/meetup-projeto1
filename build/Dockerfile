@@ -23,8 +23,9 @@ RUN apt-get update && apt-get install python-software-properties software-proper
 WORKDIR /
 
 # COPY
-COPY conf/default 	/etc/nginx/sites-available/
-COPY conf/www.conf 	/etc/php/7.0/fpm/pool.d/
+COPY conf/default 	    /etc/nginx/sites-available/
+COPY conf/www.conf 	    /etc/php/7.0/fpm/pool.d/
+COPY conf/index.html 	/var/www/html/
 COPY scripts/start.sh 	/
 
 # ports
