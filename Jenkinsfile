@@ -57,7 +57,7 @@ node ('master') {
                 }
                 stage ("GitHub TAG") {
                     sh "git config --global user.email 'vandocouto@gmail.com'"
-                    sh "git config --global user.name "'Evandro Couto'"
+                    sh "git config --global user.name 'Evandro Couto'"
                     sh "git tag -a Master-'${currentBuild.displayName}' -m Master-'${currentBuild.displayName}'"
                     sh "git push origin --tags"
                 }
