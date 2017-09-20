@@ -6,7 +6,6 @@ ipswarm="10.0.1.177"
 node ('master') {
 
     stage('Fetch') {
-        notifyStarted()
         checkout scm
         pollSCM 'H/1 * * * *'
     }
@@ -77,7 +76,6 @@ node ('master') {
 }
 
 
-def notifyStarted() { /* .. */ }
 def notifySuccessful() {
     slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${currentBuild.displayName}]' (<${env.BUILD_URL}|Open>)")
 }
