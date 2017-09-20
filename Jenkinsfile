@@ -56,14 +56,6 @@ node ('master') {
                         sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts ./ansible/tasks/main.yml --tags projeto1_master --extra-vars dockerlogin=churrops --extra-vars dockerpass=$REGISTRY --extra-vars version='${currentBuild.displayName}'"
                     }
                 }
-                stage ("GitHub TAG") {
-                    withCredentials([usernamePassword(credentialsId: 'GITHUB', passwordVariable: 'PASSWD', usernameVariable: 'USERNAME')]) {
-                        sh "git config --global user.email 'vandocouto@gmail.com'"
-                        sh "git config --global user.name 'Evandro Couto'"
-                        sh "git tag -a Master-'${currentBuild.displayName}' -m Master-'${currentBuild.displayName}'"
-                        sh "git push origin https://$USERNAME:$PASSWD@github.com/vandocouto/meetup-projeto1 --tags"
-                    }
-                }
             }
             else {
                 echo "branch not master"
