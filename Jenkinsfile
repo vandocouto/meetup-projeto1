@@ -1,6 +1,6 @@
 currentBuild.displayName = "1.0.${BUILD_NUMBER}"
 currentBuild.description = "Meetup Churrops"
-ipswarm="10.0.1.198"
+ipswarm="10.0.1.236"
 pathVssh="meetup"
 
 node ('master') {
