@@ -1,5 +1,5 @@
 [master]
-10.0.1.198
+10.0.1.236
 
 [all:vars]
 ansible_ssh_user=ubuntu
