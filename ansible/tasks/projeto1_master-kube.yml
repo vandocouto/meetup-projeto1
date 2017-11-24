@@ -8,4 +8,4 @@
   template: src=../templates/production.kubernetes_service.yaml dest=/docker-compose/projeto1/kube/production.kubernetes_service.yaml owner=root mode=644
 
 - name: "Compose projeto1 | Deploy container"
-  shell: kubectl create -f /docker-compose/projeto1/kube/production.kubernetes_service.yaml
+  shell: kubectl apply -f /docker-compose/projeto1/kube/production.kubernetes_service.yaml
