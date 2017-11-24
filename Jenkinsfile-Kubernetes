@@ -34,7 +34,7 @@ node ('master') {
             tags('projeto1_master-kube')
             credentialsId('KubernetesApi')
             sudo(true)
-            sudoUser("user")
+            sudoUser("ubuntu")
             extraVars {
                 extraVar("version", "'${currentBuild.displayName}'", true)
                 }
