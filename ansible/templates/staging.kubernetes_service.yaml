@@ -7,14 +7,14 @@ spec:
  replicas: 3
  selector:
   matchLabels:
-   app: projeto1ST
+   app: projeto1-st
  template:
   metadata:
    labels:
-    app: projeto1ST
+    app: projeto1-st
   spec:
    containers:
-   - name: projeto1ST
+   - name: projeto1-st
      image: registry.churrops.com/projeto1:{{ version }}
      command: ["./start.sh"]
      ports:
@@ -26,8 +26,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: projeto1ST
-  name: projeto1ST
+    app: projeto1-st
+  name: projeto1-st
 spec:
   externalTrafficPolicy: Cluster
   ports:
@@ -35,6 +35,6 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: projeto1ST
+    app: projeto1-st
   sessionAffinity: None
   type: LoadBalancer
