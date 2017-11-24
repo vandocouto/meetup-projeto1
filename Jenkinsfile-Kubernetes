@@ -28,12 +28,10 @@ node ('master') {
             sh "sudo docker push registry.churrops.com/projeto1:'${currentBuild.displayName}'"
         }
 
-        stage ('Ansible') {
-            ansiblePlaybook(
-            playbook: 'ansible/tasks/main.yml',
-            inventory: 'ansible/hosts-kube',
-            credentialsId: 'KubernetesApi',
-            extras: '-e version="${currentBuild.displayName}"')
+        stage ('Gerando chave pub') {
+            sshagent(['KubernetesApi']) {
+                sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts-kube ./ansible/tasks/main.yml --tags projeto1_master-kube --extra-vars version='${currentBuild.displayName}'"
+            }
         }
 
         stage ('teste') {
