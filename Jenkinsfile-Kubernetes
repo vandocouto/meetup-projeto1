@@ -32,7 +32,9 @@ node ('master') {
         }
 
         stage ('Gerando chave pub') {
-            sh 'ssh-keygen'
+            if (!fileExists('/var/jenkins_home/.ssh/id_rsa.pub')) {
+                sh "ssh-keygen -f id_rsa -t rsa -N ''"
+            }
         }
 
         stage ('kubernetes Admin') {
