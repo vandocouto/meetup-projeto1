@@ -39,7 +39,7 @@ node ('master') {
 
         stage ('kubernetes Admin') {
             sshagent(['KubernetesApi']) {
-                sh 'ssh-copy-id -o StrictHostKeyChecking=no  -i ~/.ssh/id_rsa.pub ubuntu@api.churrops.com'
+                sh 'ssh-copy-id -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub ubuntu@api.churrops.com'
             }
         }
     }
