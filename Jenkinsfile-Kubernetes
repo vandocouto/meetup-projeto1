@@ -29,17 +29,12 @@ node ('master') {
         }
 
         stage ('Ansible') {
-            ansiblePlaybook('ansible/tasks/main.yml') {
-            inventoryPath('ansible/hosts-kube')
-            ansibleName('2.4.1.0')
-            tags('projeto1_master-kube')
-            credentialsId('KubernetesApi')
-            sudo(true)
-            sudoUser("ubuntu")
-            extraVars {
-                extraVar("version", "'${currentBuild.displayName}'", true)
-                }
-            }
+            ansiblePlaybook(
+            playbook: 'ansible/tasks/main.yml',
+            inventory: 'ansible/hosts-kube',
+            credentialsId: 'KubernetesApi',
+            tags: projeto1_master-kube,
+            extras: '-e version="${currentBuild.displayName}"')
         }
 
         stage ('teste') {
