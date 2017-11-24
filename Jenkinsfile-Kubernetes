@@ -28,7 +28,7 @@ node ('master') {
             sh "sudo docker push registry.churrops.com/projeto1:'${currentBuild.displayName}'"
         }
 
-        steps {
+        stage ('Ansible') {
             ansiblePlaybook('ansible/tasks/main.yml') {
             inventoryPath('ansible/hosts-kube')
             tags('projeto1_master-kube')
