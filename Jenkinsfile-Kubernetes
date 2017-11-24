@@ -31,9 +31,13 @@ node ('master') {
             sh 'ssh-keygen -f "/var/jenkins_home/.ssh/known_hosts" -R api.churrops.com'
         }
 
+        stage ('Gerando chave pub') {
+            sh 'ssh-keygen'
+        }
+
         stage ('kubernetes Admin') {
             sshagent(['KubernetesApi']) {
-                sh 'scp -o StrictHostKeyChecking=no ubuntu@api.churrops.com:/etc/kubernetes/admin.conf .'
+                sh 'ssh-copy-id -o StrictHostKeyChecking=no  -i ~/.ssh/id_rsa.pub ubuntu@api.churrops.com'
             }
         }
     }
