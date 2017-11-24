@@ -30,7 +30,7 @@ node ('master') {
 
         stage ('Gerando chave pub') {
             withCredentials([file(credentialsId: 'churropsPem', variable: 'churropsPem')]) {
-                sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts-kube --key-file $churropsPem ./ansible/tasks/main.yml --tags projeto1_master-kube --extra-vars version='${currentBuild.displayName}'"
+                sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --private-key=$churropsPem ./ansible/tasks/main.yml --tags projeto1_master-kube --extra-vars version='${currentBuild.displayName}'"
             }
         }
 
