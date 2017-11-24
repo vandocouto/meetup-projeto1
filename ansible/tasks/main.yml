@@ -7,13 +7,13 @@
 
   tasks:
 
-   - include: projeto1_master.yml
+   - import_tasks: projeto1_master.yml
      tags: projeto1_master
 
-   - include: projeto1_staging.yml
+   - import_tasks: projeto1_staging.yml
      tags: projeto1_staging
 
-   - include: projeto1_master-kube.yml
+   - import_tasks: projeto1_master-kube.yml
      tags: projeto1_master-kube
 
 
