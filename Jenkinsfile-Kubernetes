@@ -28,7 +28,7 @@ node ('master') {
 
         stage ('kubernetes Admin') {
             sshagent(['KubernetesApi']) {
-                sh 'ssh -o StrictHostKeyChecking=no ubuntu@api.churrops.com uname -a'
+                sh 'scp -o StrictHostKeyChecking=no ubuntu@api.churrops.com:/etc/kubernetes/admin.conf .'
             }
         }
     }
