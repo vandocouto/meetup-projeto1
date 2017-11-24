@@ -30,7 +30,7 @@ node ('master') {
 
         stage ('Gerando chave pub') {
             if (!fileExists('/var/jenkins_home/.ssh/api_rsa')) {
-                sh " ssh-keygen -f api_rsa -t rsa -N ''"
+                sh " ssh-keygen -f /var/jenkins_home/.ssh/api_rsa -t rsa -N ''"
                 sshagent(['KubernetesApi']) {
                     sh "ssh-copy-id -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/api_rsa.pub ubuntu@'${api}'"
                 }
