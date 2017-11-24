@@ -36,6 +36,10 @@ node ('master') {
                 }
             }
         }
+
+        stage ('teste') {
+            sh "ssh ubuntu@'${api}' uname -a"
+        }
     }
     catch (e) {
         currentBuild.result = "FAILED"
