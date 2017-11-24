@@ -3,10 +3,6 @@ currentBuild.description = "Meetup Churrops"
 
 node ('master') {
     try {
-        stage('Slack Notification'){
-            notifyBuild('STARTED')
-        }
-
         stage('Fetch') {
             checkout scm
             pollSCM 'H/1 * * * *'
