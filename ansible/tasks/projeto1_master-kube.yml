@@ -1,0 +1,15 @@
+---
+- name: "Compose projeto1 | Create directory /docker-compose/projeto1"
+  file: path={{ item }} state=directory mode=0755
+  with_items:
+   - /docker-compose/projeto1/kube
+
+- name: "Compose projeto1 | Download image"
+  docker_image:
+   name: registry.churrops.com/projeto1:{{ version }}
+
+- name: "Compose projeto1 | Create docker-compose.yml"
+  template: src=../templates/production.docker-compose.yml dest=/docker-compose/projeto1/kube/production.kubernetes_service.yaml owner=root mode=644
+
+- name: "Compose projeto1 | Deploy container"
+  shell: kubectl create -f /docker-compose/projeto1/kube/production.kubernetes_service.yaml

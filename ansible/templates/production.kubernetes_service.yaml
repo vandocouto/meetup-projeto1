@@ -15,7 +15,7 @@ spec:
   spec:
    containers:
    - name: projeto1
-     image: registry.churrops.com/projeto1:latest
+     image: registry.churrops.com/projeto1:{{ version }}
      command: ["./start.sh"]
      ports:
      - containerPort: 80
