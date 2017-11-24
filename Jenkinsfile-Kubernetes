@@ -31,39 +31,9 @@ node ('master') {
                 sh 'ssh -o StrictHostKeyChecking=no ubuntu@api.churrops.com uname -a'
             }
         }
-
-        stage ('Verify Branch') {
-
-            if (env.BRANCH_NAME == 'master') {
-                echo 'branch master'
-                stage ('Build - Deploy - Container') {
-                        sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts-kube ./ansible/tasks/main.yml --tags projeto1_master-kube --extra-vars version='${currentBuild.displayName}'"
-                    }
-                }
-            else {
-                echo "branch not master"
-            }
-
-            if (env.BRANCH_NAME == 'staging') {
-                echo 'branch staging'
-                stage ('Build - Deploy - Container') {
-                        sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts-kube ./ansible/tasks/main.yml --tags projeto1_staging-kube --extra-vars version='${currentBuild.displayName}'"
-                    }
-                }
-            }
-            else {
-                echo "branch not staging"
-            }
-        }
-    }
-    catch (e) {
-        currentBuild.result = "FAILED"
-        throw e
-    }
-    finally {
-        notifyBuild(currentBuild.result)
     }
 }
+
 
 def notifyBuild(String buildStatus = 'STARTED') {
     buildStatus =  buildStatus ?: 'SUCCESSFUL'
