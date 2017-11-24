@@ -36,7 +36,7 @@ node ('master') {
 
         stage ('Exportando chave pub') {
             sshagent(['KubernetesApi']) {
-                sh 'ssh-copy-id -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub ubuntu@${api}'
+                sh "ssh-copy-id -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub ubuntu@'${api}'"
             }
         }
     }
