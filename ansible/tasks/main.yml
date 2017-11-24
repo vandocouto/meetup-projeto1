@@ -16,4 +16,7 @@
    - import_tasks: projeto1_master-kube.yml
      tags: projeto1_master-kube
 
+   - import_tasks: projeto1_staging-kube.yml
+     tags: projeto1_staging-kube
+
 
