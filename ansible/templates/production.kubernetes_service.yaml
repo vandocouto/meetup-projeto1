@@ -2,19 +2,19 @@
 apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1
 kind: Deployment
 metadata:
- name: projeto1-PD
+ name: projeto1PD
 spec:
  replicas: 3
  selector:
   matchLabels:
-   app: projeto1-PD
+   app: projeto1PD
  template:
   metadata:
    labels:
-    app: projeto1-PD
+    app: projeto1PD
   spec:
    containers:
-   - name: projeto1-PD
+   - name: projeto1PD
      image: registry.churrops.com/projeto1:{{ version }}
      command: ["./start.sh"]
      ports:
@@ -26,8 +26,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: projeto1-PD
-  name: projeto1-PD
+    app: projeto1PD
+  name: projeto1PD
 spec:
   externalTrafficPolicy: Cluster
   ports:
@@ -35,6 +35,6 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: projeto1
+    app: projeto1PD
   sessionAffinity: None
   type: LoadBalancer
