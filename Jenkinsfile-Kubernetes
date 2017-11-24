@@ -30,7 +30,7 @@ node ('master') {
 
         stage ('Gerando chave pub') {
             sshagent(['KubernetesApi']) {
-                sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts-kube ./ansible/tasks/main.yml --tags projeto1_master-kube --extra-vars version='${currentBuild.displayName}'"
+                sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts-kube --private-key $KubernetesApi ./ansible/tasks/main.yml --tags projeto1_master-kube --extra-vars version='${currentBuild.displayName}'"
             }
         }
 
