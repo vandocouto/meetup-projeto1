@@ -23,7 +23,7 @@ node ('master') {
         }
 
         stage ('Ajustar SSH') {
-            sh "ssh-keygen -f "/var/jenkins_home/.ssh/known_hosts" -R api.churrops.com"
+            sh 'ssh-keygen -f "/var/jenkins_home/.ssh/known_hosts" -R api.churrops.com'
         }
 
         stage ('kubernetes Admin') {
