@@ -22,6 +22,10 @@ node ('master') {
             sh "sudo docker push registry.churrops.com/projeto1:'${currentBuild.displayName}'"
         }
 
+        stage ('Ajustar SSH') {
+            sh "ssh-keygen -f "/var/jenkins_home/.ssh/known_hosts" -R api.churrops.com"
+        }
+
         stage ('kubernetes Admin') {
             sshagent(['KubernetesApi']) {
                 sh 'ssh -o StrictHostKeyChecking=no ubuntu@api.churrops.com uname -a'
