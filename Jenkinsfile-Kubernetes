@@ -28,7 +28,7 @@ node ('master') {
         }
 
         stage ('Ajustar SSH') {
-            sh 'ssh-keygen -f "/var/jenkins_home/.ssh/known_hosts" -R api.churrops.com'
+            sh 'rm -rf /var/jenkins_home/.ssh/known_hosts'
         }
 
         stage ('Gerando chave pub') {
