@@ -33,7 +33,6 @@ node ('master') {
             playbook: 'ansible/tasks/main.yml',
             inventory: 'ansible/hosts-kube',
             credentialsId: 'KubernetesApi',
-            tags: projeto1_master-kube,
             extras: '-e version="${currentBuild.displayName}"')
         }
 
