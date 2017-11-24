@@ -31,6 +31,7 @@ node ('master') {
         stage ('Ansible') {
             ansiblePlaybook('ansible/tasks/main.yml') {
             inventoryPath('ansible/hosts-kube')
+            ansibleName('2.4.1.0')
             tags('projeto1_master-kube')
             credentialsId('KubernetesApi')
             sudo(true)
