@@ -28,7 +28,7 @@ node ('master') {
             sh "sudo docker push registry.churrops.com/projeto1:'${currentBuild.displayName}'"
         }
 
-        stage ('Gerando chave pub') {
+        stage ('Ansible Deploy') {
             withCredentials([file(credentialsId: 'churropsPem', variable: 'churropsPem')]) {
                 sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i ansible/hosts-kube --private-key=$churropsPem ./ansible/tasks/main.yml --tags projeto1_master-kube --extra-vars version='${currentBuild.displayName}'"
             }
