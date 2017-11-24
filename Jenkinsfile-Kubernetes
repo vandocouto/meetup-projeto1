@@ -1,5 +1,6 @@
 currentBuild.displayName = "1.0.${BUILD_NUMBER}"
 currentBuild.description = "Meetup Churrops"
+api="10.0.1.126"
 
 node ('master') {
     try {
@@ -27,10 +28,6 @@ node ('master') {
             sh "sudo docker push registry.churrops.com/projeto1:'${currentBuild.displayName}'"
         }
 
-        stage ('Ajustar SSH') {
-            sh 'rm -rf /var/jenkins_home/.ssh/known_hosts'
-        }
-
         stage ('Gerando chave pub') {
             if (!fileExists('/var/jenkins_home/.ssh/id_rsa.pub')) {
                 sh "ssh-keygen -f id_rsa -t rsa -N ''"
@@ -39,7 +36,7 @@ node ('master') {
 
         stage ('Exportando chave pub') {
             sshagent(['KubernetesApi']) {
-                sh 'ssh-copy-id -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub ubuntu@api.churrops.com'
+                sh 'ssh-copy-id -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub ubuntu@${api}'
             }
         }
     }
