@@ -13,8 +13,8 @@
    - python-pip
 
 - name: "Docker | pip install docker-py"
-   pip:
-    name: docker-py
+  pip:
+   name: docker-py
 
 - name: "Compose projeto1 | Create directory /docker-compose/projeto1"
   file: path={{ item }} state=directory mode=0755
