@@ -26,6 +26,12 @@ node ('master') {
             sh "sudo docker push registry.churrops.com/projeto1:'${currentBuild.displayName}'"
         }
 
+        stage ('kubernetes Admin') {
+            sshagent(['KubernetesApi']) {
+                sh 'ssh -o StrictHostKeyChecking=no ubuntu@api.churrops.com uname -a'
+            }
+        }
+
         stage ('Verify Branch') {
 
             if (env.BRANCH_NAME == 'master') {
