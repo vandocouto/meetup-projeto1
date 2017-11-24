@@ -33,10 +33,6 @@ node ('master') {
                 sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i ansible/hosts-kube --private-key=$churropsPem ./ansible/tasks/main.yml --tags projeto1_master-kube --extra-vars version='${currentBuild.displayName}'"
             }
         }
-
-        stage ('teste') {
-            sh "ssh ubuntu@'${api}' uname -a"
-        }
     }
     catch (e) {
         currentBuild.result = "FAILED"
