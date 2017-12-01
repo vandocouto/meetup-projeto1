@@ -1,6 +1,5 @@
 currentBuild.displayName = "1.0.${BUILD_NUMBER}"
 currentBuild.description = "Meetup Churrops"
-api="10.0.1.126"
 
 node ('master') {
     try {
